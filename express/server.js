@@ -2,6 +2,7 @@
 // That helps us reduce the complexity of api creation
 // it provides better apporach and better utility which was not offered
 // by node js http module 
+// sails
 
 // web applocation server
 
@@ -12,13 +13,19 @@ require("dotenv").config()  //
 const express=require("express");  // It loads the express package and assigns it to the express variable
 const port =process.env.PORT || 9091
 const cors=require("cors");
+const path=require("path");
+
 //the above express variable is a function actually 
 // 1-65356
 
 
 const app=express() ; // calling express function returns us with the app object which we use to create server and routes
 
-app.use(cors())
+//console.log(express.json())
+app.use(express.urlencoded({extended:true}))  // used when submitting the form in html or template engines
+// For react /angular /vue generally you send the data in json 
+app.use(express.json());// this middleware will parse the json body to something which node js /express understands
+app.use(cors()) // middleware use
 
 // Root route (/)
 
@@ -34,13 +41,14 @@ app.get("/",(req,res,next)=>{
 
 })
 
+// app.get is for getting the request
 app.get("/user",(req,res,next)=>{
     // res.send("hello world");// this will send the response to the user
  //res.write("hello there");
  
  console.log(req.query);
  //res.end()
- 
+ //
     res.send("Hey there I am from User route !!") //--> res.write() + res.end() from http module node js
  
  })
@@ -76,6 +84,42 @@ app.get("/user",(req,res,next)=>{
 
 
 // If you want to start the web application server 
+
+//  ---->Post routes --->
+// for getting the data
+
+app.post("/post",(req,res)=>{
+
+    //--->
+    console.log(req.body);
+
+    res.send("Post route hit");
+
+})
+
+
+/// How to send a file in express --->
+
+app.get("/html",(req,res)=>{
+   // res.send()
+// this actually 
+console.log();
+  // res.sendFile(__dirname+"/views/dashboard.html");--->should not use this syntax might throw error in different os
+   //
+
+   res.sendFile(path.join(__dirname,"views","dashboard.html"))
+})
+
+
+
+app.get("/download",(req,res)=>{
+    res.sendFile(path.join(__dirname,"views","net-http.pdf"))
+
+
+
+})
+
+
 
 app.listen(port,()=>{
     console.log(`Server Running At port ${port}`)
