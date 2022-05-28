@@ -14,6 +14,9 @@ const express=require("express");  // It loads the express package and assigns i
 const port =process.env.PORT || 9091
 const cors=require("cors");
 const path=require("path");
+const data=[
+
+]
 
 //the above express variable is a function actually 
 // 1-65356
@@ -46,10 +49,10 @@ app.get("/user",(req,res,next)=>{
     // res.send("hello world");// this will send the response to the user
  //res.write("hello there");
  
- console.log(req.query);
+ //console.log(req.query);
  //res.end()
  //
-    res.send("Hey there I am from User route !!") //--> res.write() + res.end() from http module node js
+    res.send(data); //--> res.write() + res.end() from http module node js
  
  })
  
@@ -89,11 +92,13 @@ app.get("/user",(req,res,next)=>{
 // for getting the data
 
 app.post("/post",(req,res)=>{
+   // console.log(req.query);
 
     //--->
-    console.log(req.body);
+    //console.log(req.body);
+    data.push(req.body);
 
-    res.send("Post route hit");
+    res.send(req.body);
 
 })
 
@@ -105,9 +110,9 @@ app.get("/html",(req,res)=>{
 // this actually 
 console.log();
   // res.sendFile(__dirname+"/views/dashboard.html");--->should not use this syntax might throw error in different os
-   //
+   /// __dirname gives you the absolute path of your current directory
 
-   res.sendFile(path.join(__dirname,"views","dashboard.html"))
+   res.sendFile(path.join(__dirname,"pages","dashboard.html"))
 })
 
 
