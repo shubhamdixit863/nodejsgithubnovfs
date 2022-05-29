@@ -60,3 +60,34 @@ try {
 } catch (error) {
     console.log("File not found");
 }
+
+
+const fs=require("fs");
+
+
+
+
+function PromiseRead(){
+
+  return new Promise((res,rej)=>{
+
+    fs.readFile("./a.txgt",'utf-8',(err,data)=>{
+  if(err){
+    rej(err);
+  }
+  else{
+    res(data);
+  }
+})
+    
+  
+  
+  
+  })
+}
+
+PromiseRead().then(data=>{
+  console.log(data);
+}).catch(err=>{
+  console.log(err);
+})

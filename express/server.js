@@ -27,7 +27,9 @@ const app=express() ; // calling express function returns us with the app object
 //console.log(express.json())
 app.use(express.urlencoded({extended:true}))  // used when submitting the form in html or template engines
 // For react /angular /vue generally you send the data in json 
-app.use(express.json());// this middleware will parse the json body to something which node js /express understands
+
+// app.use is used to bind the middleware
+app.use(express.json());// express.json is a middleware ,this middleware will parse the json body to something which node js /express understands
 app.use(cors()) // middleware use
 
 // Root route (/)
